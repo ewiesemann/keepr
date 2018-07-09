@@ -17,4 +17,8 @@
     <PackageReference Include="MySQLConnector" Version="0.34.0" />
   </ItemGroup>
 
+    <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
+  </ItemGroup>
+
 </Project>
