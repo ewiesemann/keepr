@@ -15,7 +15,7 @@ namespace Keepr.Repositories
     public Keep CreateKeep(Keep newKeep)
     {
       int id = _db.ExecuteScalar<int>(@"
-                INSERT INTO keepsone (name, description, userId)
+                INSERT INTO keeps (name, description, userId)
                 VALUES (@Name, @Description, @AuthorId);
                 SELECT LAST_INSERT_ID();
             ", newKeep);
