@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Data;
+using Keepr.Repositories;
 using Keepr.Models;
 using Dapper;
 
@@ -12,15 +13,15 @@ namespace Keepr.Repositories
 
     }
     // Create Vault
-    public Vault CreateVault(Vault newVault)
+    public Vault CreateVault(Vault vault)
     {
       int id = _db.ExecuteScalar<int>(@"
                 INSERT INTO vaults (name, description, authorId)
                 VALUES (@Name, @Description, @AuthorId);
                 SELECT LAST_INSERT_ID();
-            ", newVault);
-      newVault.Id = id;
-      return newVault;
+            ", vault);
+      vault.Id = id;
+      return vault;
     }
     // GetAll Vault
     public IEnumerable<Vault> GetAll()
@@ -33,28 +34,28 @@ namespace Keepr.Repositories
       return _db.Query<Vault>("SELECT * FROM vaults WHERE authorId = @id;", new { id });
     }
     // GetbyId
-    public Vault GetbyVaultId(int id)
+    public Vault GetByVaultId(int id)
     {
       return _db.QueryFirstOrDefault<Vault>("SELECT * FROM vaults WHERE id = @id;", new { id });
     }
     // Edit
-    public Vault EditVault(int id, Vault vault)
+    public Vault EditVault(int id, Vault edit)
     {
-      vault.Id = id;
+      edit.Id = id;
       var i = _db.Execute(@"
                 UPDATE vaults SET
                     name = @Name,
                     description = @Description
                 WHERE id = @Id
-            ", vault);
+            ", edit);
       if (i > 0)
       {
-        return vault;
+        return edit;
       }
       return null;
     }
     // Delete
-    public bool DeletVault(int id)
+    public bool DeleteVault(int id, string authorId)
     {
       var i = _db.Execute(@"
       DELETE FROM vaults
@@ -67,8 +68,6 @@ namespace Keepr.Repositories
       }
       return false;
     }
-
-    // Add get user favs to user
   }
 
 

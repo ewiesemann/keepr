@@ -14,6 +14,7 @@ namespace Keepr.Controllers
     {
       _db = repo;  
     }
+
     [HttpPost]
     [Authorize]
     public Vault CreateVault([FromBody]Vault newVault)
@@ -26,29 +27,42 @@ namespace Keepr.Controllers
       }
       return null;
     }
-    //get all Vaults
-    [HttpGet]
-    public IEnumerable<Vault> GetAll()
-    {
-      return _db.GetAll();
-    }
+
     //get Vault by id
     [HttpGet("{id}")]
-    public Vault GetById(int id)
+    public Vault GetByVaultId(int id)
     {
-      return _db.GetbyVaultId(id);
+      return _db.GetByVaultId(id);
     }
-    //get Vault by author
+
     [HttpGet("author/{id}")]
     public IEnumerable<Vault> GetByAuthorId(int id)
     {
       return _db.GetbyAuthorId(id);
     }
-    //edit Vault
-    [HttpPut("{id}")]
-    public Vault EditVault(int id, [FromBody]Vault newVault)
+
+        [HttpPut("{id}")]
+    [Authorize]
+    public Vault EditVault(int id, [FromBody]Vault editVault)
     {
-      return _db.EditVault(id, newVault);
+      if (ModelState.IsValid)
+      {
+       return _db.EditVault(id, editVault);
+      }
+      return null;
     }
+
+    [HttpDelete("{id}")]
+    [Authorize]
+    public string DeleteVault(int id)
+    {
+      var user = HttpContext.User.Identity.Name;
+      bool delete = _db.DeleteVault(id, user);
+      if(delete) {
+        return "Successfully Deleted!";
+      }
+      return "An Error Occurred!";
+    }
+
   }
 }
