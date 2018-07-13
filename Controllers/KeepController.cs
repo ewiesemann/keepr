@@ -74,9 +74,9 @@ namespace Keepr.Controllers
             bool delete = _db.DeleteKeep(id, user);
             if (delete)
             {
-                return "Successfully Deleted!";
+                return "This Has Been Successfully Deleted!";
             }
-            return "An Error Occurred!";
+            return "Error Occurred!";
         }
     }
 }

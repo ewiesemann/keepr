@@ -4,7 +4,7 @@ import axios from 'axios'
 import router from "../router"
 
 var production = !window.location.host.includes('localhost');
-var baseUrl = production ? '' : '//localhost:5000/';
+var baseUrl = production ? 'heroku address' : '//localhost:5000/';
 
 vue.use(vuex)
 
@@ -23,23 +23,20 @@ var auth = axios.create({
 export default new vuex.Store({
     state: {
         user: {},
-        keeps: [],
-        vaults: [],
+        // keeps: [],
+        // vaults: [],
     },
 
     mutations: {
         setUser(state, user) {
             state.user = user
         },
-        deleteUser(state) {
-            state.user = {}
-        },
-        setKeeps(state, keeps) {
-            state.keeps = keeps
-        },
-        setVaults(state, vaults) {
-            state.vaults = vaults
-        }
+        // setKeeps(state, keeps) {
+        //     state.keeps = keeps
+        // },
+        // setVaults(state, vaults) {
+        //     state.vaults = vaults
+        // }
     },
 
     actions: {
@@ -75,29 +72,29 @@ export default new vuex.Store({
                     console.log(res.data)
                 })
         },
-        addKeep({ dispatch, commit }, keep) {
-            api.post('/keeps', keep)
-                .then(res => {
-                    dispatch('getKeeps')
-                })
-        },
-        getKeeps({ commit, dispatch }) {
-            api.get('/keeps')
-                .then(res => {
-                    commit('setkeeps', res.data)
-                })
-        },
-        removeKeep({ commit, dispatch, state }, keep) {
-            api.delete('/keeps/' + keep._id, keep)
-                .then(res => {
-                    dispatch('getKeeps')
-                })
-        },
-        viewKeep({ commit, dispatch, state }, keepId) {
-            api.get('/keeps/' + keepId)
-                .then(res => {
-                    commit('setActivekeep', res.data)
-                })
-        },
+        // addKeep({ dispatch, commit }, keep) {
+        //     api.post('/keeps', keep)
+        //         .then(res => {
+        //             dispatch('getKeeps')
+        //         })
+        // },
+        // getKeeps({ commit, dispatch }) {
+        //     api.get('/keeps')
+        //         .then(res => {
+        //             commit('setkeeps', res.data)
+        //         })
+        // },
+        // removeKeep({ commit, dispatch, state }, keep) {
+        //     api.delete('/keeps/' + keep._id, keep)
+        //         .then(res => {
+        //             dispatch('getKeeps')
+        //         })
+        // },
+        // viewKeep({ commit, dispatch, state }, keepId) {
+        //     api.get('/keeps/' + keepId)
+        //         .then(res => {
+        //             commit('setActivekeep', res.data)
+        //         })
+        // },
     }
 })
