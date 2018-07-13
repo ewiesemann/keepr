@@ -1,15 +1,11 @@
 <template>
-  <div class="login">
-    <button type="button" class="btn btn-primary btn-lg">Log In</button>
-    <button type="button" class="btn btn-secondary btn-lg">Register</button>
-  </div>
 </template>
 
 <script>
   import router from '../router'
 
 export default {
-  name: 'Home',
+  name: 'login',
   component:{
     // keep
   }

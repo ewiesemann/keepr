@@ -20,11 +20,9 @@
 </template>
 
 <script>
+
   export default {
-    name: '',
-    mounted() {
-      this.$store.dispatch('authenticate')
-    },
+    name: 'Login',
     data() {
       return {
         login: {
@@ -38,7 +36,14 @@
         }
       }
     },
-    computed: {},
+    mounted() {
+      this.$store.dispatch('authenticate')
+    },
+    computed: {
+      currentUser() {
+        return this.$store.state.userModule.name
+      }
+    },
     methods: {
       userLogin() {
         this.$store.dispatch('login', this.login)
