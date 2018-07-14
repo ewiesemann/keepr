@@ -23,7 +23,7 @@ var auth = axios.create({
 export default new vuex.Store({
     state: {
         user: {},
-        keeps: [],
+        keeps: {},
     },
 
     mutations: {
@@ -35,6 +35,9 @@ export default new vuex.Store({
           },
         addKeep(state, keeps) {
             state.keeps = []
+        },
+        setKeeps(state, payload){
+            state.keeps = payload
         }
     },
 
@@ -83,7 +86,7 @@ export default new vuex.Store({
         getKeeps({ commit, dispatch }) {
             api.get('/keeps')
                 .then(res => {
-                    commit('setkeeps', res.data)
+                    commit('setKeeps', res.data)
                 })
         },
         removeKeep({ commit, dispatch, state }, keep) {

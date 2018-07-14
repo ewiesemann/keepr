@@ -11,7 +11,7 @@
                     <a class="nav-item nav-link active" href="#">Home
                         <span class="sr-only">(current)</span>
                     </a>
-                    <button type="button" class="btn btn1 mt-1 btnwidth2 ml-4" data-toggle="modal" data-target="#createKeepModal">Create Keep</button>
+                    <a class="nav-item nav-link" data-toggle="modal" data-target="#createKeepModal" href="#">Create Keep</a>
                     <div class="modal fade" id="createKeepModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -50,7 +50,7 @@
             </div>
         </nav>
         <h1>This is the home page</h1>
-        
+        {{keeps}}
     </div>
 </template>
 
@@ -69,9 +69,16 @@
                 }
             }
         },
+        mounted() {
+            this.$store.dispatch("getKeeps")
+        },
+
         computed: {
             user(){
                 return this.$store.state.user
+            },
+            keeps(){
+                return this.$store.state.keeps
             }
         },
         methods: {
