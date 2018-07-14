@@ -77,7 +77,6 @@
         data() {
             return {
                 login: {
-                    username: '',
                     email: '',
                     password: ''
                 },
@@ -94,14 +93,14 @@
             }
            
         },
-        // methods: {
-        //     login() {
-        //         this.$store.dispatch('login', this.login)
-        //     },
-        //     register() {
-        //         this.$store.dispatch('register', this.register)
-        //     }
-        // }
+        methods: {
+            userLogin() {
+                this.$store.dispatch('login', this.login)
+            },
+            // register() {
+            //     this.$store.dispatch('register', this.register)
+            // }
+        }
     }
 </script>
 

@@ -4,7 +4,7 @@ import axios from 'axios'
 import router from "../router"
 
 var production = !window.location.host.includes('localhost');
-var baseUrl = production ? 'heroku address' : '//localhost:5000/';
+var baseUrl = production ? '' : '//localhost:5000/';
 
 vue.use(vuex)
 
@@ -33,10 +33,12 @@ export default new vuex.Store({
 
     actions: {
         //AUTH STUFF
-        login({ commit, dispatch }, loginCredentials) {
+        login({ commit }, loginCredentials) {
             auth.post('login', loginCredentials)
                 .then(res => {
-                    commit('setUser', res.data)
+                    console.log('Successfully logged in')
+                    console.log(res.data.data)
+                    commit('setUser', res.data.data)
                     router.push({ name: 'Home' })
                 })
         },
