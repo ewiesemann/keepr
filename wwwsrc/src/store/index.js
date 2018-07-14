@@ -23,20 +23,12 @@ var auth = axios.create({
 export default new vuex.Store({
     state: {
         user: {},
-        // keeps: [],
-        // vaults: [],
     },
 
     mutations: {
         setUser(state, user) {
             state.user = user
         },
-        // setKeeps(state, keeps) {
-        //     state.keeps = keeps
-        // },
-        // setVaults(state, vaults) {
-        //     state.vaults = vaults
-        // }
     },
 
     actions: {
@@ -63,7 +55,7 @@ export default new vuex.Store({
                 })
         },
         authenticate({ commit, dispatch }) {
-            auth.get('/authenticate')
+            auth.get('authenticate')
                 .then(res => {
                     commit('setUser', res.data)
                     router.push({ name: 'Home' })

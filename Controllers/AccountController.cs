@@ -94,22 +94,5 @@ namespace Keepr.Controllers
             return "Looks like you are on the wrong page!";
         }
 
-        [Authorize]
-        [HttpGet("favs")]
-        public IEnumerable<Keep> GetUserFavs(){
-           var user = HttpContext.User.Identity.Name;
-           return _db.GetUserFavs(user);
-        }
-
-        [Authorize]
-        [HttpPost("favs/{keepId}")]
-        public string AddFav(int keepId){
-            bool success = _db.AddFav(keepId, HttpContext.User.Identity.Name);
-            if(success){
-                return "FAV ADDED!";
-            }
-            return "FAILED TO ADD";
-        }
-
     }
 }
