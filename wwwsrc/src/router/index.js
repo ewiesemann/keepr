@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import login from '@/components/login'
 import Home from '@/components/Home'
 import Register from '@/components/Register'
-// import Keep from '@/components/Keep'
+import Keep from '@/components/Keep'
 // import Vault from '@/components/Vault'
 
 Vue.use(Router)
@@ -28,11 +28,11 @@ export default new Router({
       component: Home
     },
 
-    // {
-    //   path: '/Keeps',
-    //   name: 'Keep',
-    //   component: Keep
-    // },
+    {
+      path: '/Keep',
+      name: 'Keep',
+      component: Keep
+    },
 
     // {
     //   path: '/Vaults',

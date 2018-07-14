@@ -30,8 +30,8 @@
                                             <input type="text" name="description" v-model="keep.description" class="form-control" id="formGroupExampleInput" placeholder="Description">
                                         </div>
                                         <div class="form-group">
-                                                <input type="text" name="img" v-model="keep.img" class="form-control" id="formGroupExampleInput" placeholder="Image">
-                                            </div>
+                                            <input type="text" name="img" v-model="keep.img" class="form-control" id="formGroupExampleInput" placeholder="Image">
+                                        </div>
                                         <button type="submit" @click="createKeep" class="btn btn1" data-dismiss="modal">Create Keep</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                     </form>
@@ -39,9 +39,36 @@
                             </div>
                         </div>
                     </div>
-                    <a class="nav-item nav-link" href="#">Keeps</a>
-                    <a class="nav-item nav-link" href="#">Create Vaults</a>
-                    <a class="nav-item nav-link" href="#">Vaults</a>
+                    <a @click="myKeeps" class="nav-item nav-link" href="#">My Keeps</a>
+                    <a class="nav-item nav-link" data-toggle="modal" data-target="#createVaultModal" href="#">Create Vault</a>
+                    <div class="modal fade" id="createVaultModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Create Vault</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form v-on:submit.prevent="createVault">
+                                        <div class="form-group">
+                                            <input type="text" name="name" v-model="vault.name" class="form-control" id="formGroupExampleInput" placeholder="Name" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="description" v-model="vault.description" class="form-control" id="formGroupExampleInput" placeholder="Description">
+                                        </div>
+                                        <!-- <div class="form-group">
+                                                <input type="text" name="img" v-model="Vault.img" class="form-control" id="formGroupExampleInput" placeholder="Image">
+                                            </div> -->
+                                        <button type="submit" @click="createVault" class="btn btn1" data-dismiss="modal">Create Vault</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="nav-item nav-link" href="#">My Vaults</a>
 
 
                     <a @click='logout' class="nav-item nav-link" href="#">Log Out</a>
@@ -50,8 +77,21 @@
             </div>
         </nav>
         <h1>This is the home page</h1>
-        {{keeps}}
+
+        <div v-for="keep in keeps" :key="keep.id" class="card text-center">
+            <h3 class="card-title">{{keep.name}}</h3>
+            <div class="container">
+                <img :src="keep.img" alt="">
+                <div class="buttons">
+                    <button class="btn" data-toggle="modal" data-target="#viewingKeepModal" @click="addView(keep)">View</button>
+                    <button class="btn" @click="addToVault(keep)">Add to Vault </button>
+                </div>
+            </div>
+            <h3 class="card-text">Description: {{keep.description}}</h3>
+            <h3 class="card-text">Views: {{keep.views}} Saves: {{keep.saves}}</h3>
+        </div>
     </div>
+
 </template>
 
 <script>
@@ -65,7 +105,11 @@
                 keep: {
                     name: '',
                     description: '',
-                    img:'',
+                    img: '',
+                },
+                vault: {
+                    name: "",
+                    description: "",
                 }
             }
         },
@@ -74,11 +118,14 @@
         },
 
         computed: {
-            user(){
+            user() {
                 return this.$store.state.user
             },
-            keeps(){
+            keeps() {
                 return this.$store.state.keeps
+            },
+            vaults() {
+                return this.$store.state.vaults
             }
         },
         methods: {
@@ -88,7 +135,14 @@
             createKeep() {
                 console.log(this.keep)
                 this.$store.dispatch('addKeep', this.keep)
-            }
+            },
+            myKeeps() {
+                router.push({ name: "Keep" })
+            },
+            createVault() {
+                console.log(this.vault)
+                this.$store.dispatch('addVault', this.vault)
+            },
         }
     }
 
