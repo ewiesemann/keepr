@@ -23,12 +23,19 @@ var auth = axios.create({
 export default new vuex.Store({
     state: {
         user: {},
+        keeps: [],
     },
 
     mutations: {
         setUser(state, user) {
             state.user = user
         },
+        deleteUser(state) {
+            state.user = {}
+          },
+        addKeep(state, keeps) {
+            state.keeps = []
+        }
     },
 
     actions: {
@@ -37,14 +44,14 @@ export default new vuex.Store({
             auth.post('login', loginCredentials)
                 .then(res => {
                     console.log('Successfully logged in')
-                    console.log(res.data.data)
-                    commit('setUser', res.data.data)
+                    commit('setUser', res.data)
                     router.push({ name: 'Home' })
                 })
         },
         logout({ commit, dispatch }) {
-            auth.delete('logout')
+            auth.delete('')
                 .then(res => {
+                    console.log('You have successfully logged out')
                     commit('deleteUser')
                     router.push({ name: 'login' })
                 })
@@ -52,6 +59,7 @@ export default new vuex.Store({
         register({ commit, dispatch }, userData) {
             auth.post('register', userData)
                 .then(res => {
+                    console.log('Successfully registered')
                     commit('setUser', res.data)
                     router.push({ name: 'Home' })
                 })
@@ -66,29 +74,29 @@ export default new vuex.Store({
                     console.log(res.data)
                 })
         },
-        // addKeep({ dispatch, commit }, keep) {
-        //     api.post('/keeps', keep)
-        //         .then(res => {
-        //             dispatch('getKeeps')
-        //         })
-        // },
-        // getKeeps({ commit, dispatch }) {
-        //     api.get('/keeps')
-        //         .then(res => {
-        //             commit('setkeeps', res.data)
-        //         })
-        // },
-        // removeKeep({ commit, dispatch, state }, keep) {
-        //     api.delete('/keeps/' + keep._id, keep)
-        //         .then(res => {
-        //             dispatch('getKeeps')
-        //         })
-        // },
-        // viewKeep({ commit, dispatch, state }, keepId) {
-        //     api.get('/keeps/' + keepId)
-        //         .then(res => {
-        //             commit('setActivekeep', res.data)
-        //         })
-        // },
+        addKeep({ dispatch, commit }, keep) {
+            api.post('/keeps', keep)
+                .then(res => {
+                    dispatch('getKeeps')
+                })
+        },
+        getKeeps({ commit, dispatch }) {
+            api.get('/keeps')
+                .then(res => {
+                    commit('setkeeps', res.data)
+                })
+        },
+        removeKeep({ commit, dispatch, state }, keep) {
+            api.delete('/keeps/' + keep._id, keep)
+                .then(res => {
+                    dispatch('getKeeps')
+                })
+        },
+        viewKeep({ commit, dispatch, state }, keepId) {
+            api.get('/keeps/' + keepId)
+                .then(res => {
+                    commit('setActivekeep', res.data)
+                })
+        },
     }
 })

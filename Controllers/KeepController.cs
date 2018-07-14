@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace Keepr.Controllers
 {
     [Route("api/[controller]")]
-    public class KeepController : Controller
+    public class KeepsController : Controller
     {
         private readonly KeepRepository _db;
-        public KeepController(KeepRepository repo)
+        public KeepsController(KeepRepository repo)
         {
             _db = repo;
         }
@@ -41,12 +41,12 @@ namespace Keepr.Controllers
             return _db.GetByAuthorId(id);
         }
 
-        [HttpPost("{id}")]
-        [Authorize]
+        [HttpPost]
+        // [Authorize]
         public Keep CreateKeep(int id, [FromBody]Keep newKeep)
         {
             newKeep.AuthorId = HttpContext.User.Identity.Name;
-            newKeep.VaultId = id;
+            // newKeep.VaultId = id;
             if (ModelState.IsValid)
             {
                 return _db.CreateKeep(newKeep);

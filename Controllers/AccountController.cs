@@ -51,6 +51,15 @@ namespace Keepr.Controllers
             }
             return null;
         }
+
+        [Authorize]
+        [HttpDelete]
+        public async Task<string> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return "succesfully logged out";
+        }
+
         [HttpGet("authenticate")]
         public UserReturnModel Authenticate()
         {
