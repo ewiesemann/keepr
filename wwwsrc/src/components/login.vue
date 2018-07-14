@@ -15,17 +15,16 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form v-on:submit.prevent="ownerLogin">
+                                <form v-on:submit.prevent="login">
                                     <div class="form-group">
-                                        <input type="text" name="ownerUsername" v-model="
-                                      login.username" class="form-control" id="formGroupExampleInput" placeholder="Username"
-                                            required>
+                                        <input type="text" name="email" v-model="
+                                      login.email" class="form-control" id="formGroupExampleInput" placeholder="Email" required>
                                     </div>
                                     <div class="form-group">
                                         <input type="text" name="password" v-model="
                                           login.password" class="form-control" id="formGroupExampleInput" placeholder="Password">
                                     </div>
-                                    <button type="button" @click="ownerLogin" class="btn btn1" data-dismiss="modal">Login</button>
+                                    <button type="button" @click="login" class="btn btn1" data-dismiss="modal">Login</button>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 </form>
                             </div>
@@ -45,13 +44,9 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form v-on:submit.prevent="ownerRegister">
+                                <form v-on:submit.prevent="register">
                                     <div class="form-group">
-                                        <input type="text" name="username" v-model="register.username" class="form-control" id="formGroupExampleInput" placeholder="Username"
-                                            required>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" name="businessName" v-model="register.businessName" class="form-control" id="formGroupExampleInput" placeholder="Business Name"
+                                        <input type="text" name="username" v-model="register.name" class="form-control" id="formGroupExampleInput" placeholder="Name"
                                             required>
                                     </div>
                                     <div class="form-group">
@@ -60,7 +55,7 @@
                                     <div class="form-group">
                                         <input type="text" name="password" v-model="register.password" class="form-control" id="formGroupExampleInput" placeholder="Password">
                                     </div>
-                                    <button type="button" @click="ownerRegister" class="btn btn1" data-dismiss="modal">Register</button>
+                                    <button type="button" @click="register" class="btn btn1" data-dismiss="modal">Register</button>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 </form>
                             </div>
@@ -75,7 +70,7 @@
 <script>
     import router from '../router'
     export default {
-        name: '',
+        name: 'login',
         components: {
 
         },
@@ -83,15 +78,30 @@
             return {
                 login: {
                     username: '',
+                    email: '',
                     password: ''
                 },
                 register: {
                     username: '',
                     email: '',
                     password: '',
-                },
+                }
             }
-        }
+        },
+        mounted() {
+            if (!this.$store.state.user) {
+                this.$store.dispatch('authenticate')
+            }
+           
+        },
+        // methods: {
+        //     login() {
+        //         this.$store.dispatch('login', this.login)
+        //     },
+        //     register() {
+        //         this.$store.dispatch('register', this.register)
+        //     }
+        // }
     }
 </script>
 
