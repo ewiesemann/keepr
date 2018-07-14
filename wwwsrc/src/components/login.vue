@@ -20,47 +20,29 @@
 </template>
 
 <script>
-
+  import router from '../router'
   export default {
-    name: 'Login',
+    name: 'login',
     data() {
       return {
-        login: {
-          email: '',
-          password: ''
-        },
-        register: {
-          name: '',
+        user:{
           email: '',
           password: ''
         }
       }
     },
     mounted() {
-      this.$store.dispatch('authenticate')
+      this.$store.dispatch("authenticate")
     },
     computed: {
-      currentUser() {
-        return this.$store.state.userModule.name
-      }
     },
     methods: {
-      userLogin() {
-        this.$store.dispatch('login', this.login)
-        this.login = {
-          email: '',
-          password: ''
-        }
+      login(){
+        this.$store.dispatch('login', this.user)
       },
-      userRegister() {
-        this.$store.dispatch('register', this.register)
-        this.register = {
-          name: '',
-          email: '',
-          password: ''
-        }
-      },
-
+      register(){
+        this.$store.dispatch('register', this.user)
+      }
     }
   }
 </script>

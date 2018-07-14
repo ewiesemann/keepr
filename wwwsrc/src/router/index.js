@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
 import login from '@/components/login'
+import Home from '@/components/Home'
 import Register from '@/components/Register'
 // import Keep from '@/components/Keep'
 // import Vault from '@/components/Vault'
@@ -11,7 +11,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/login',
+      path: '/',
       name: 'login',
       component: login
     },
@@ -23,7 +23,7 @@ export default new Router({
     },
 
     {
-      path: '/',
+      path: '/Home',
       name: 'Home',
       component: Home
     },
