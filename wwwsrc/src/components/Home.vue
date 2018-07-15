@@ -160,4 +160,8 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    img {
+        max-height: 30vh;
+        max-width: 30vh;
+    }
 </style>

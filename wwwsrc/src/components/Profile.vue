@@ -31,22 +31,22 @@
                                         <div class="form-group">
                                             <input type="text" name="img" v-model="keep.img" class="form-control" id="formGroupExampleInput" placeholder="Image">
                                         </div>
-                                        <button type="submit" @click="createKeep" class="btn btn1" data-dismiss="modal">Create Keep</button>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <div class="dropdown">
+                                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                  Dropdown button
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                  <a class="dropdown-item" href="#">Public</a>
+                                                  <a class="dropdown-item" href="#">Private</a>
+                                                </div>
+                                                <button type="submit" @click="createKeep" class="btn btn1" data-dismiss="modal">Create Keep</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Dropdown button
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                              <a class="dropdown-item" href="#">Public</a>
-                              <a class="dropdown-item" href="#">Private</a>
-                            </div>
-                          </div>
                     <a class="nav-item nav-link" data-toggle="modal" data-target="#createVaultModal" href="#">Create Vault</a>
                     <div class="modal fade" id="createVaultModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -65,11 +65,8 @@
                                         <div class="form-group">
                                             <input type="text" name="description" v-model="vault.description" class="form-control" id="formGroupExampleInput" placeholder="Description">
                                         </div>
-                                        <!-- <div class="form-group">
-                                            <input type="text" name="img" v-model="Vault.img" class="form-control" id="formGroupExampleInput" placeholder="Image">
-                                        </div> -->
-                                        <button type="submit" @click="createVault" class="btn btn1" data-dismiss="modal">Create Vault</button>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            <button type="submit" @click="createVault" class="btn btn1" data-dismiss="modal">Create Vault</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                     </form>
                                 </div>
                             </div>
