@@ -1,8 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
-using Keepr.Repositories;
-using Keepr.Models;
 using System.Collections.Generic;
+using Keepr.Models;
+using Keepr.Repositories;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Keepr.Controllers
 {
@@ -28,11 +28,11 @@ namespace Keepr.Controllers
       return null;
     }
 
-    //get Vault by id
+
     [HttpGet("{id}")]
-    public Vault GetByVaultId(int id)
+    public Vault GetById(int id)
     {
-      return _db.GetByVaultId(id);
+      return _db.GetById(id);
     }
 
     [HttpGet("author/{id}")]

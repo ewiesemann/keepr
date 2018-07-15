@@ -52,7 +52,7 @@ namespace Keepr.Controllers
             return null;
         }
 
-        [Authorize]
+      //  [Authorize]
         [HttpDelete]
         public async Task<string> Logout()
         {

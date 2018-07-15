@@ -8,8 +8,7 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
 
-                    <a class="nav-item nav-link active" href="#">Home
-                        <span class="sr-only">(current)</span>
+                    <a @click='Home' class="nav-item nav-link active" href="#/Home">Home</a>
                     </a>
                     <a class="nav-item nav-link" data-toggle="modal" data-target="#createKeepModal" href="#">Create Keep</a>
                     <div class="modal fade" id="createKeepModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -32,23 +31,22 @@
                                         <div class="form-group">
                                             <input type="text" name="img" v-model="keep.img" class="form-control" id="formGroupExampleInput" placeholder="Image">
                                         </div>
-                                        <div class="dropdown">
-                                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                Public or Private
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="#">Public</a>
-                                                <a class="dropdown-item" href="#">Private</a>
-                                            </div>
-                                            <button type="submit" @click="createKeep" class="btn btn1" data-dismiss="modal">Create Keep</button>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                        </div>
+                                        <button type="submit" @click="createKeep" class="btn btn1" data-dismiss="modal">Create Keep</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Dropdown button
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                              <a class="dropdown-item" href="#">Public</a>
+                              <a class="dropdown-item" href="#">Private</a>
+                            </div>
+                          </div>
                     <a class="nav-item nav-link" data-toggle="modal" data-target="#createVaultModal" href="#">Create Vault</a>
                     <div class="modal fade" id="createVaultModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -77,7 +75,7 @@
                             </div>
                         </div>
                     </div>
-                    <a @click="profile" class="nav-item nav-link" href="#/Profile">My Profile</a>
+                    <a @click='profile' class="nav-item nav-link" href="#/Profile">My Profile</a>
 
 
                     <a @click='logout' class="nav-item nav-link" href="#">Log Out</a>
@@ -85,20 +83,7 @@
                 </div>
             </div>
         </nav>
-        <h1>This is the home page</h1>
-
-        <div v-for="keep in keeps" :key="keep.id" class="card text-center">
-            <h3 class="card-title">{{keep.name}}</h3>
-            <div class="container">
-                <img :src="keep.img" alt="">
-                <div class="buttons">
-                    <button class="btn" data-toggle="modal" data-target="#viewingKeepModal" @click="addView(keep)">View</button>
-                    <button class="btn" @click="addToVault(keep)">Add to Vault </button>
-                </div>
-            </div>
-            <h3 class="card-text">Description: {{keep.description}}</h3>
-            <h3 class="card-text">Views: {{keep.views}} Saves: {{keep.saves}}</h3>
-        </div>
+        <h1>This is the Profile page</h1>
     </div>
 
 </template>
@@ -152,6 +137,9 @@
                 console.log(this.vault)
                 this.$store.dispatch('addVault', this.vault)
             },
+            home(){
+                this.$store.dispatch('Home')
+            }
         }
     }
 
