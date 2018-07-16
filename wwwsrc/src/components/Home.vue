@@ -85,7 +85,8 @@
                 </div>
             </div>
         </nav>
-        <h1>This is the home page</h1>
+        <h1>Welcome to KEEPR</h1>
+        <h3>If you like an image, add it to your VAULT</h3>
 
         <div v-for="keep in keeps" :key="keep.id" class="card text-center">
             <h3 class="card-title">{{keep.name}}</h3>

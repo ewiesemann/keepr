@@ -28,6 +28,12 @@ namespace Keepr.Controllers
       return null;
     }
 
+            [HttpGet]
+        public IEnumerable<Vault> GetAll()
+        {
+            return _db.GetAll();
+        }
+
 
     [HttpGet("{id}")]
     public Vault GetById(int id)

@@ -42,6 +42,9 @@ export default new vuex.Store({
         },
         addVault(state, vaults) {
             state.vaults = []
+        },
+        setVaults(state, vaults) {
+            state.vaults = vaults
         }
     },
 
