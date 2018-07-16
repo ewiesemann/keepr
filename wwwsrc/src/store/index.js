@@ -139,5 +139,11 @@ export default new vuex.Store({
                     commit('setActivevault', res.data)
                 })
         },
+        addVaultKeep({ dispatch, commit }, vaultkeep) {
+            api.post('/vaultkeep', vaultkeep)
+                .then(res => {
+                    dispatch('getvaults')
+                })
+        },
     }
 })
