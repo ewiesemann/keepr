@@ -112,7 +112,7 @@ export default new vuex.Store({
         updateKeep({commit, dispatch}, keep) {
             api.put('/keeps/' + keep.id, keep)
             .then(res => {
-                commit('getKeeps')
+                dispatch('getKeeps')
             })
         },
         addVault({ dispatch, commit }, vault) {

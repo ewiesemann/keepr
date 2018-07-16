@@ -59,7 +59,7 @@ namespace Keepr.Repositories
                 views = @Views, 
                 keeps = @Keeps, 
                 privatepublic = @Privatepublic, 
-                authorID = @AuthorId,
+                authorID = @AuthorId
                 WHERE id = @Id
             ", editKeep);
             if (i > 0)

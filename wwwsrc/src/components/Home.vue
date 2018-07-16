@@ -77,7 +77,7 @@
                             </div>
                         </div>
                     </div>
-                    <a @click="profile" class="nav-item nav-link" href="#/Profile">My Profile</a>
+                    <a @click="viewProfile" class="nav-item nav-link" href="#/Profile">My Profile</a>
 
 
                     <a @click='logout' class="nav-item nav-link" href="#">Log Out</a>
@@ -87,9 +87,26 @@
         </nav>
         <h1>Welcome to KEEPR</h1>
         <h3>If you like an image, add it to your VAULT</h3>
+        <div class="modal fade" id="viewKeepModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">{{viewKeep.name}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <img :src="viewKeep.img" alt="">
+                            <h3>{{viewKeep.description}}</h3>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Add to Vault</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         <div v-for="keep in keeps" :key="keep.id" class="card text-center">
-            <button @click="addView(keep)">Click to View</button>
             <h3 class="card-title">{{keep.name}}</h3>
             <div class="container">
                 <img :src="keep.img" alt="">
@@ -132,7 +149,7 @@
                     description: ''
                 },
                 viewKeep:{
-                    
+
                 }
                 // vault: {
                 //     name: "",
@@ -163,7 +180,7 @@
                 console.log(this.keep)
                 this.$store.dispatch('addKeep', this.keep)
             },
-            profile() {
+            viewProfile() {
                 router.push({ name: 'Profile' })
             },
             createVault() {
@@ -174,7 +191,7 @@
                 keep.views++
                 this.$store.dispatch('updateKeep', keep)
                 this.viewKeep=keep
-                $('#viewingKeepModal').modal('show')
+                $('#viewKeepModal').modal('show')
                 
             }
         }
