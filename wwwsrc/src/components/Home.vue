@@ -83,9 +83,9 @@
                 </div>
             </div>
         </nav>
-        <div class="keepbody text-light">
-             <h1>Welcome to KEEPR</h1>
-            <h3>If you like an image, add it to your VAULT</h3>
+        <div class="keepbody">
+            <h1>Welcome to KEEPR</h1>
+            <h2>If you like an image, add it to your VAULT</h2>
 
             <div class="modal fade" id="viewKeepModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -108,17 +108,16 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-around flex-wrap">
-                        <div v-for="keep in keeps" :key="keep.id" class="card text-center">
-                            <h3 class="card-title">{{keep.name}}</h3>
+                        <div v-for="keep in keeps" :key="keep.id" class="card mb-4 text-center">
+                            <h3 class="card-text">{{keep.name}}</h3>
+                            <h3 class="card-text">{{keep.description}}</h3>
                             <div class="container">
                                 <img :src="keep.img" alt="">
-                                <div class="buttons">
-                                    <button class="btn" data-toggle="modal" data-target="#viewingKeepModal" @click="addView(keep)">View</button>
-                                    <button class="btn" @click="addToVault(keep)">Add to Vault </button>
-                                </div>
+                                <button class="btn" data-toggle="modal" data-target="#viewingKeepModal" @click="addView(keep)">View</button>
+                                <!-- <button class="btn" @click="addToVault(keep)">Add to Vault </button> -->
+                                <button class="btn2">Saves: {{keep.saves}}</button>
+                                <button class="btn3">Views:{{keep.views}}</button>
                             </div>
-                            <h3 class="card-text">Description: {{keep.description}}</h3>
-                            <h3 class="card-text">Views: {{keep.views}} Saves: {{keep.saves}}</h3>
 
                         </div>
                     </div>
@@ -211,11 +210,81 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     img {
-        max-height: 30vh;
-        max-width: 30vh;
+        height: 50vh;
+        width: 35vh;
     }
 
-    .keepbody{
+    .keepbody {
+        background-image: url("../assets/stars2.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+
+    }
+
+    h1 {
+        color: gray
+    }
+
+    h2 {
+        color: grey
+    }
+
+    .container {
+        position: relative;
+    }
+
+    .container .btn {
+        position: absolute;
+        top: 95%;
+        left: 15%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        background-color: rgb(204, 198, 198);
+        color: blue;
+        font-size: 16px;
+        /* padding: 12px 24px; */
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        height: 40px;
+        text-align: center;
+    }
+
+    .container .btn2 {
+        position: absolute;
+        top: 95%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        background-color: rgb(204, 198, 198);
+        color: blue;
+        font-size: 16px;
+        /* padding: 12px 24px; */
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        height: 40px;
+        text-align: center;
+    }
+
+    .container .btn3 {
+        position: absolute;
+        top: 95%;
+        left: 85%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        background-color: rgb(204, 198, 198);
+        color: blue;
+        font-size: 16px;
+        /* padding: 12px 24px; */
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        height: 40px;
+        text-align: center;
+    }
+
+    .container .btn:hover {
         background-color: black;
     }
 </style>

@@ -27,7 +27,7 @@ namespace Keepr.Repositories
         // GetAll Vault
         public IEnumerable<Vault> GetAll()
         {
-            return _db.Query<Vault>("SELECT * FROM vaults WHERE public = true;");
+            return _db.Query<Vault>("SELECT * FROM vaults;");
         }
 
         internal Vault GetById(int id)

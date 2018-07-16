@@ -34,7 +34,7 @@ namespace Keepr.Controllers
       return _db.GetbyAuthorId(id);
     }
 
-        [HttpPut("{id}")]
+      [HttpPut("{id}")]
     [Authorize]
     public Vault EditVaultKeep(int id, [FromBody]VaultKeep editVaultKeep)
     {
