@@ -42,7 +42,8 @@ namespace Keepr.Controllers
     }
 
     [HttpGet("author/{id}")]
-    public IEnumerable<Vault> GetByAuthorId(int id)
+    [Authorize]
+    public IEnumerable<Vault> GetByAuthorId(string id)
     {
       return _db.GetbyAuthorId(id);
     }

@@ -88,14 +88,14 @@
             <h3>You can manage your Keeps and Vaults here</h3>
             <div class="row keepbody">
                 <div class="col-6">
-                    <button type="button" class="btn btn-lg">My Keeps</button>
+                    <h1>My Keeps</h1>
                 </div>
                 <div class="col-6">
-                    <button type="button" class="btn btn-lg">My Vaults</button>
+                    <h1>My Vaults</h1>
                 </div>
             </div>
         </div>
-        <div class="keepbody text-light">
+        <div class="keepbody">
             <div class="col-6">
                 <div class="container-fluid">
                     <div class="row">
@@ -106,9 +106,9 @@
                                 <div class="container">
                                     <img :src="keep.img" alt="">
                                     <!-- <button class="btn" data-toggle="modal" data-target="#viewingKeepModal" @click="addView(keep)">View</button>
-                                                <button class="btn" @click="addToVault(keep)">Add to Vault </button>  
-                                                <button class="btn2">Saves: {{keep.saves}}</button>
-                                                <button class="btn3">Views:{{keep.views}}</button> -->
+                                                <button class="btn" @click="addToVault(keep)">Add to Vault </button> -->
+                                                <button class="btn2">Delete</button>
+                                                <!-- <button class="btn3">Views:{{keep.views}}</button> -->
                                 </div>
 
                             </div>
@@ -165,7 +165,7 @@
         },
         mounted() {
             this.$store.dispatch("getKeeps")
-            this.$store.dispatch("getVaults")
+            this.$store.dispatch("getVaults", this.user.id)
         },
 
         computed: {
@@ -209,16 +209,31 @@
 
     .keepbody {
         background-image: url("../assets/stars2.jpg");
-        background-size: cover;
-        background-repeat: no-repeat;
-    
+        background-size: 100%;
+    }
+
+        .container .btn2 {
+        position: absolute;
+        top: 93%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        background-color: rgb(204, 198, 198);
+        color: blue;
+        font-size: 16px;
+        /* padding: 12px 24px; */
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        height: 40px;
+        text-align: center;
     }
 
     h1 {
-        color: gray
+        color: rgb(209, 186, 186)
     }
 
-    h3 {
-        color: grey
+    h2 {
+        color: rgb(209, 186, 186)
     }
 </style>

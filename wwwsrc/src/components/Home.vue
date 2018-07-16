@@ -99,6 +99,7 @@
                         <div class="modal-body">
                             <img :src="viewKeep.img" alt="">
                             <h3>{{viewKeep.description}}</h3>
+                            <button class="btn" @click="addToVault(keep)">Add to Vault </button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
@@ -216,17 +217,17 @@
 
     .keepbody {
         background-image: url("../assets/stars2.jpg");
-        background-size: cover;
-        background-repeat: no-repeat;
+        background-size: 100%;
+        
 
     }
 
     h1 {
-        color: gray
+        color: rgb(209, 186, 186)
     }
 
     h2 {
-        color: grey
+        color: rgb(209, 186, 186)
     }
 
     .container {

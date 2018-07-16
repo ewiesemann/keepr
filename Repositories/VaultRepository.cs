@@ -36,7 +36,7 @@ namespace Keepr.Repositories
         }
     
     // GetbyAuthor
-    public IEnumerable<Vault> GetbyAuthorId(int id)
+    public IEnumerable<Vault> GetbyAuthorId(string id)
         {
             return _db.Query<Vault>("SELECT * FROM vaults WHERE authorId = @id;", new { id });
         }

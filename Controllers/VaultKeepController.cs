@@ -36,7 +36,7 @@ namespace Keepr.Controllers
 
       [HttpPut("{id}")]
     [Authorize]
-    public Vault EditVaultKeep(int id, [FromBody]VaultKeep editVaultKeep)
+    public VaultKeep EditVaultKeep(int id, [FromBody]VaultKeep editVaultKeep)
     {
       if (ModelState.IsValid)
       {

@@ -49,8 +49,8 @@ export default new vuex.Store({
         addVault(state, vaults) {
             state.vaults = []
         },
-        setVaults(state, userVaults) {
-            state.vaults= userVaults
+        setVaults(state, payload) {
+            state.vaults= payload
         },
         setActiveVault (state, vault){
             state.activeVault = vault
@@ -145,13 +145,7 @@ export default new vuex.Store({
                     dispatch('getvaults')
                 })
         },
-        getVaults({ commit, dispatch }) {
-            api.get('/vaults')
-                .then(res => {
-                    debugger
-                    commit('setVaults')
-                })
-        },
+
         getUserVaults({ commit, dispatch }, user) {
             api.get("/vault/user/" + user.id)
                 .then(res => {
@@ -168,8 +162,8 @@ export default new vuex.Store({
                     dispatch('getvaults')
                 })
         },
-        viewVault({ commit, dispatch, state }, vaultId) {
-            api.get('/vaults/' + vaultId)
+        getVaults({ commit, dispatch, state }, userId) {
+            api.get('/vaults/author/' + userId)
                 .then(res => {
                     dispatch('getvaults', res.data)
                 })
