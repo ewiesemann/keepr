@@ -45,7 +45,8 @@ export default new vuex.Store({
         },
         setVaults(state, vaults) {
             state.vaults = vaults
-        }
+        },
+
     },
 
     actions: {
@@ -71,7 +72,7 @@ export default new vuex.Store({
                 .then(res => {
                     console.log('Successfully registered')
                     commit('setUser', res.data)
-                    router.push({ name: 'Home' })
+                    router.push({ name: 'login' })
                 })
         },
         authenticate({ commit, dispatch }) {
@@ -102,11 +103,17 @@ export default new vuex.Store({
                     dispatch('getKeeps')
                 })
         },
-        viewKeep({ commit, dispatch, state }, keepId) {
-            api.get('/keeps/' + keepId)
+        viewKeep({ commit, dispatch, state }, keep) {
+            api.get('/keeps/' + keep.id, keep)
                 .then(res => {
                     commit('setActivekeep', res.data)
                 })
+        },
+        updateKeep({commit, dispatch}, keep) {
+            api.put('/keeps/' + keep.id, keep)
+            .then(res => {
+                commit('getKeeps')
+            })
         },
         addVault({ dispatch, commit }, vault) {
             api.post('/vault', vault)

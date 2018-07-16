@@ -53,10 +53,14 @@ namespace Keepr.Repositories
             editKeep.AuthorId = user;
             var i = _db.Execute(@"
                 UPDATE keeps SET
-                    description = @Description
-                    img = @Img,
+                name = @Name, 
+                description = @Description, 
+                img = @Img, 
+                views = @Views, 
+                keeps = @Keeps, 
+                privatepublic = @Privatepublic, 
+                authorID = @AuthorId,
                 WHERE id = @Id
-                AND authorID = @AuthorId;
             ", editKeep);
             if (i > 0)
             {

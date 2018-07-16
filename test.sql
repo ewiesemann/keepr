@@ -22,7 +22,7 @@
 --     PRIMARY KEY (id)
 -- );
 
--- drop table if exists keeps;
+-- DELETE FROM keeps;
 
 -- CREATE TABLE keeps (
 --     id int NOT NULL AUTO_INCREMENT,

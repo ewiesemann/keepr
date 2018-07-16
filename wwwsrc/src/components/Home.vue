@@ -89,6 +89,7 @@
         <h3>If you like an image, add it to your VAULT</h3>
 
         <div v-for="keep in keeps" :key="keep.id" class="card text-center">
+            <button @click="addView(keep)">Click to View</button>
             <h3 class="card-title">{{keep.name}}</h3>
             <div class="container">
                 <img :src="keep.img" alt="">
@@ -116,11 +117,27 @@
                     name: '',
                     description: '',
                     img: '',
+                    views: 0,
+                    keeps: 0,
+                    userId: '',
+                    private: 0,
                 },
+                publicSetting: "Public",
+                home: true,
+                profile: false,
+                show: 0,
+                viewKeep: {},
                 vault: {
-                    name: "",
-                    description: "",
+                    name: '',
+                    description: ''
+                },
+                viewKeep:{
+                    
                 }
+                // vault: {
+                //     name: "",
+                //     description: "",
+                // }
             }
         },
         mounted() {
@@ -153,6 +170,13 @@
                 console.log(this.vault)
                 this.$store.dispatch('addVault', this.vault)
             },
+            addView(keep){
+                keep.views++
+                this.$store.dispatch('updateKeep', keep)
+                this.viewKeep=keep
+                $('#viewingKeepModal').modal('show')
+                
+            }
         }
     }
 

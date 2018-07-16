@@ -65,6 +65,8 @@
                 </div>
             </div>
         </div>
+        <h3>Please Log In</h3>
+        <h3>If you do not have an account, please register and then log in</h3>
     </div>
 </template>
 
