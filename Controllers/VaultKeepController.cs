@@ -28,21 +28,10 @@ namespace Keepr.Controllers
       return null;
     }
 
-    [HttpGet("author/{id}")]
-    public IEnumerable<VaultKeep> GetByAuthorId(int id)
+    [HttpGet("{id}")]
+    public IEnumerable<Keep> GetKeepsInVault(int id)
     {
-      return _db.GetbyAuthorId(id);
-    }
-
-      [HttpPut("{id}")]
-    [Authorize]
-    public VaultKeep EditVaultKeep(int id, [FromBody]VaultKeep editVaultKeep)
-    {
-      if (ModelState.IsValid)
-      {
-       return _db.EditVaultKeep(id, editVaultKeep);
-      }
-      return null;
+      return _db.GetKeepsInVault(id);
     }
 
     [HttpDelete("{id}")]

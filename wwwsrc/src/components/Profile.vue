@@ -95,11 +95,10 @@
                 </div>
             </div>
         </div>
-        <div class="keepbody">
-            <div class="col-6">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12 d-flex justify-content-around flex-wrap">
+        <div class="container-fluid">
+            <div class="row">
+                    <div class="col-6 keepbody">
+                        <div class="keepcards d-flex justify-content-around flex-wrap">
                             <div v-for="keep in keeps" :key="keep.id" class="card mb-4 text-center">
                                 <h3 class="card-text">{{keep.name}}</h3>
                                 <h3 class="card-text">{{keep.description}}</h3>
@@ -107,37 +106,18 @@
                                     <img :src="keep.img" alt="">
                                     <!-- <button class="btn" data-toggle="modal" data-target="#viewingKeepModal" @click="addView(keep)">View</button>
                                                 <button class="btn" @click="addToVault(keep)">Add to Vault </button> -->
-                                                <button class="btn2">Delete</button>
-                                                <!-- <button class="btn3">Views:{{keep.views}}</button> -->
+                                    <button class="btn2">Delete</button>
+                                    <!-- <button class="btn3">Views:{{keep.views}}</button> -->
                                 </div>
-
                             </div>
                         </div>
+                    </div>       
+                <div class="col-6">
+                    <div v-for="vault in vaults" :key="vault.id" class="card mb-4 text-center">
+                        <h3 class="card-text">{{vault.name}}</h3>
+                        <h3 class="card-text">{{vault.description}}</h3>
                     </div>
                 </div>
-
-            </div>
-            <div class="col-6 text-light">
-                {{vault.name}}
-                {{vault.description}}
-                <!-- <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12 d-flex justify-content-around flex-wrap">
-                            <div v-for="vault in vaults" :key="vault.id" class="card mb-4 text-center">
-                                <h3 class="card-text">{{vault.name}}</h3>
-                                <h3 class="card-text">{{vault.description}}</h3>
-                                <div class="container">
-                                    <img :src="keep.img" alt="">
-                                    <button class="btn" data-toggle="modal" data-target="#viewingKeepModal" @click="addView(keep)">View</button>
-                                    <button class="btn" @click="addToVault(keep)">Add to Vault </button>
-                                    <button class="btn2">Saves: {{keep.saves}}</button>
-                                    <button class="btn3">Views:{{keep.views}}</button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
             </div>
         </div>
     </div>
@@ -212,7 +192,7 @@
         background-size: 100%;
     }
 
-        .container .btn2 {
+    .container .btn2 {
         position: absolute;
         top: 93%;
         left: 50%;

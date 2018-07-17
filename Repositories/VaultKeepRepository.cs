@@ -17,42 +17,25 @@ namespace Keepr.Repositories
         public VaultKeep CreateVaultKeep(VaultKeep vaultkeep)
         {
             int id = _db.ExecuteScalar<int>(@"
-                INSERT INTO vaults (name, description, authorId)
-                VALUES (@Name, @Description, @AuthorId);
+                INSERT INTO vaultkeeps (vaultId, keepId, authorId)
+                VALUES (@VaultId. @KeepId, @AuthorId);
                 SELECT LAST_INSERT_ID();
             ", vaultkeep);
             vaultkeep.Id = id;
             return vaultkeep;
         }
 
-        public IEnumerable<VaultKeep> GetbyAuthorId(int id)
+        public IEnumerable<Keep> GetKeepsInVault(int vaultId)
         {
-            return _db.Query<VaultKeep>("SELECT * FROM vaults WHERE authorId = @id;", new { id });
+            return _db.Query<Keep>("SELECT * FROM vaultkeeps vk INNER JOIN keeps k ON k.id = vk.keepId WHERE (vaultId = @vaultId)", new { vaultId });
         }
 
-        public VaultKeep EditVaultKeep(int id, VaultKeep edit)
-        {
-            edit.Id = id;
-            var i = _db.Execute(@"
-                UPDATE vaults SET
-                    name = @Name,
-                    description = @Description
-                WHERE id = @Id
-                AND authorId = @AuthorId;
-            ", edit);
-            if (i > 0)
-            {
-                return edit;
-            }
-            return null;
-        }
         // Delete
         public bool DeleteVaultKeep(int id, string authorId)
         {
             var i = _db.Execute(@"
-      DELETE FROM vaults
+      DELETE FROM vaultkeep
       WHERE id = @id
-      AND authorId = @authorId
       LIMIT 1;
       ", new { id });
             if (i > 0)

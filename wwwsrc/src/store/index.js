@@ -50,13 +50,10 @@ export default new vuex.Store({
             state.vaults = []
         },
         setVaults(state, payload) {
-            state.vaults= payload
+            state.vaults = payload
         },
-        setActiveVault (state, vault){
-            state.activeVault = vault
-        },
-        setUserVaults(state, vaults) {
-            state.vaults = vaults
+        setUserVaults(state, userVaults) {
+            state.vaults = userVaults
         }
     },
 
@@ -133,21 +130,27 @@ export default new vuex.Store({
                     commit('setActivekeep', res.data)
                 })
         },
-        updateKeep({commit, dispatch}, keep) {
+        updateKeep({ commit, dispatch }, keep) {
             api.put('/keeps/' + keep.id, keep)
-            .then(res => {
-                dispatch('getKeeps')
-            })
+                .then(res => {
+                    dispatch('getKeeps')
+                })
         },
+
         addVault({ dispatch, commit }, vault) {
             api.post('/vault', vault)
                 .then(res => {
                     dispatch('getvaults')
                 })
         },
-
+        getVaults({ commit, dispatch, state }, userid) {
+            api.get('/vault/author/' + userid)
+                .then(res => {
+                    commit('setUserVaults', res.data)
+                })
+        },
         getUserVaults({ commit, dispatch }, user) {
-            api.get("/vault/user/" + user.id)
+            api.get("/vault/user" + user.id)
                 .then(res => {
                     commit("setUserVaults", res.data)
                 })
@@ -162,10 +165,16 @@ export default new vuex.Store({
                     dispatch('getvaults')
                 })
         },
-        getVaults({ commit, dispatch, state }, userId) {
-            api.get('/vaults/author/' + userId)
+        viewVault({ commit, dispatch, state }, vault) {
+            api.get('/vaults/' + vault.id, vault)
                 .then(res => {
-                    dispatch('getvaults', res.data)
+                    commit('setUserVaults', res.data)
+                })
+        },
+        updateVault({ commit, dispatch }, vault) {
+            api.put('/vaults/' + vault.id, vault)
+                .then(res => {
+                    dispatch('getVaults')
                 })
         },
         addVaultKeep({ dispatch, commit }, vaultkeep) {

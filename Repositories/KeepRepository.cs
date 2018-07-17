@@ -27,7 +27,7 @@ namespace Keepr.Repositories
 
         public IEnumerable<Keep> GetAll()
         {
-            return _db.Query<Keep>("SELECT * FROM keeps;");
+            return _db.Query<Keep>("SELECT * FROM keeps WHERE public = 1;");
         }
 
         internal IEnumerable<Keep> GetByVaultId(int id)
@@ -58,7 +58,7 @@ namespace Keepr.Repositories
                 img = @Img, 
                 views = @Views, 
                 keeps = @Keeps, 
-                privatepublic = @Privatepublic, 
+                public = @Public, 
                 authorID = @AuthorId
                 WHERE id = @Id
             ", editKeep);
