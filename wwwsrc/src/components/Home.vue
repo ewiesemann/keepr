@@ -7,10 +7,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-
                     <a class="nav-item nav-link active" href="#">Home
                         <span class="sr-only">(current)</span>
                     </a>
+
+                    <!--Create Keep Model-->
                     <a class="nav-item nav-link" data-toggle="modal" data-target="#createKeepModal" href="#">Create Keep</a>
                     <div class="modal fade" id="createKeepModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -33,14 +34,11 @@
                                             <input type="text" name="img" v-model="keep.img" class="form-control" id="formGroupExampleInput" placeholder="Image">
                                         </div>
                                         <div class="dropdown">
-                                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                Public or Private
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="#">Public</a>
-                                                <a class="dropdown-item" href="#">Private</a>
-                                            </div>
+                                            <select v-model="keep.public">
+                                                <option disabled value = "">Please select one</option>
+                                                <option value="1">Public</option>
+                                                <option value="0">Private</option>
+                                            </select>
                                             <button type="submit" @click="createKeep" class="btn btn1" data-dismiss="modal">Create Keep</button>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                         </div>
@@ -49,6 +47,8 @@
                             </div>
                         </div>
                     </div>
+
+                    <!--Create Vault Model-->
                     <a class="nav-item nav-link" data-toggle="modal" data-target="#createVaultModal" href="#">Create Vault</a>
                     <div class="modal fade" id="createVaultModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -79,7 +79,6 @@
                     </div>
                     <a @click="viewProfile" class="nav-item nav-link" href="#/Profile">My Profile</a>
                     <a @click='logout' class="nav-item nav-link" href="#">Log Out</a>
-
                 </div>
             </div>
         </nav>
@@ -87,6 +86,27 @@
             <h1>Welcome to KEEPR</h1>
             <h2>If you like an image, add it to your VAULT</h2>
 
+            <!--Display Keep Card-->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-around flex-wrap">
+                        <div v-for="keep in keeps" v-if="keep.public==1" :key=" keep.id " class="card mb-4 text-center ">
+                            <h3 class="card-text ">{{keep.name}}</h3>
+                            <h3 class="card-text ">{{keep.description}}</h3>
+                            <div class="container ">
+                                <img :src="keep.img " alt=" ">
+                                <button class="btn " data-toggle="modal " data-target="#viewingKeepModal " @click="addView(keep) ">View</button>
+                                    <!-- <button class="btn " @click="addToVault(keep) ">Add to Vault </button> -->
+                                    <button class="btn2 ">Saves:{{keep.keeps}}</button>
+                                    <button class="btn3 ">Views:{{keep.views}}</button>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--View Keep Model-->
             <div class="modal fade" id="viewKeepModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -99,34 +119,21 @@
                         <div class="modal-body">
                             <img :src="viewKeep.img" alt="">
                             <h3>{{viewKeep.description}}</h3>
-                            <button class="btn" @click="addToVault(keep)">Add to Vault </button>
+                            <div class="dropdown">
+                                <select v-model="vault">
+                                    <option disabled value = "">Please select a Vault</option>
+                                    <option v-for='vault in userVaults' :key="vault.id" :value="vault">{{vault.name}}</option>
+                                </select>
+                            </div>
+                            <button type="button" @click='addToVault' class="btn btn-secondary" data-dismiss="modal">Set Vault</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12 d-flex justify-content-around flex-wrap">
-                        <div v-for="keep in keeps" :key="keep.id" class="card mb-4 text-center">
-                            <h3 class="card-text">{{keep.name}}</h3>
-                            <h3 class="card-text">{{keep.description}}</h3>
-                            <div class="container">
-                                <img :src="keep.img" alt="">
-                                <button class="btn" data-toggle="modal" data-target="#viewingKeepModal" @click="addView(keep)">View</button>
-                                <!-- <button class="btn" @click="addToVault(keep)">Add to Vault </button> -->
-                                <button class="btn2">Saves: {{keep.saves}}</button>
-                                <button class="btn3">Views:{{keep.views}}</button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -144,29 +151,20 @@
                     views: 0,
                     keeps: 0,
                     userId: '',
-                    private: 0,
-                },
-                publicSetting: "Public",
-                home: true,
-                profile: false,
-                show: 0,
-                viewKeep: {},
-                vault: {
-                    name: '',
-                    description: ''
+                    vaultId: '',
                 },
                 viewKeep: {
 
+                },
+                vault: {
+                    name: " ",
+                    description: " "
                 }
-                // vault: {
-                //     name: "",
-                //     description: "",
-                // }
             }
         },
         mounted() {
             this.$store.dispatch("getKeeps")
-            this.$store.dispatch("getVaults")
+            this.$store.dispatch("getVaults", this.user)
         },
 
         computed: {
@@ -178,6 +176,9 @@
             },
             vaults() {
                 return this.$store.state.vaults
+            },
+            userVaults(){
+                return this.$store.state.userVaults
             }
         },
         methods: {
@@ -201,6 +202,15 @@
                 this.viewKeep = keep
                 $('#viewKeepModal').modal('show')
 
+            },
+            addToVault(){
+                if (!this.vault.id) {
+                    alert("Please select Vault")
+                    return
+                }
+                this.viewKeep.keeps++
+                this.$store.dispatch('updateKeep', this.viewKeep)
+                this.$store.dispatch('addVaultKeep', {keepId:this.viewKeep.id, vaultId: this.vault.id})
             }
         }
     }
@@ -208,7 +218,7 @@
 
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<!-- Add "scoped " attribute to limit CSS to this component only -->
 <style scoped>
     img {
         height: 50vh;
@@ -216,10 +226,9 @@
     }
 
     .keepbody {
-        background-image: url("../assets/stars2.jpg");
+        background-image: url("../assets/stars2.jpg ");
         background-size: 100%;
-        
-
+          min-height: 200vh;
     }
 
     h1 {

@@ -1,5 +1,4 @@
-DROP TABLE IF EXISTS(vaultkeeps);
-
+-- DROP TABLE IF EXISTS keeps;
 
 -- CREATE TABLE users (
 --     id VARCHAR(255) NOT NULL,
@@ -9,6 +8,7 @@ DROP TABLE IF EXISTS(vaultkeeps);
 --     PRIMARY KEY (id),
 --     UNIQUE KEY email (email)
 -- );
+
 
 -- CREATE TABLE vaults (
 --     id int NOT NULL AUTO_INCREMENT,
@@ -31,7 +31,7 @@ DROP TABLE IF EXISTS(vaultkeeps);
 --     img VARCHAR (255) NOT NULL,
 --     views int,
 --     keeps int,
---     public tinyint(1),
+--     public tinyint(1) DEFAULT 1,
 --     authorId VARCHAR(255),
 --     INDEX authorId (authorId),
 --     FOREIGN KEY (authorId)
@@ -104,3 +104,6 @@ DROP TABLE IF EXISTS(vaultkeeps);
 -- DELETE FROM users WHERE id = 1
 
 -- DELETE FROM users;
+
+
+ALTER TABLE keeps MODIFY public TINYINT(1) DEFAULT 1 NOT NULL;

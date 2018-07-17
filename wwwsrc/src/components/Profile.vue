@@ -74,9 +74,9 @@
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                     </form>
                                 </div>
+                    </div>
                             </div>
                         </div>
-                    </div>
                     <a @click="profile" class="nav-item nav-link" href="#/Profile">My Profile</a>
                     <a @click='logout' class="nav-item nav-link" href="#">Log Out</a>
 
@@ -85,8 +85,8 @@
         </nav>
         <div class="keepbody text-light">
             <h1>My Profile</h1>
-            <h3>You can manage your Keeps and Vaults here</h3>
-            <div class="row keepbody">
+            <h3>You can manage your private Keeps and Vaults here</h3>
+            <div class="row">
                 <div class="col-6">
                     <h1>My Keeps</h1>
                 </div>
@@ -94,32 +94,36 @@
                     <h1>My Vaults</h1>
                 </div>
             </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row">
-                    <div class="col-6 keepbody">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-6">
                         <div class="keepcards d-flex justify-content-around flex-wrap">
-                            <div v-for="keep in keeps" :key="keep.id" class="card mb-4 text-center">
+                            <div v-for="keep in keeps" v-if="keep.public==0 && keep.authorId == user.id" :key="keep.id" class="card mb-4 text-center text-dark">
                                 <h3 class="card-text">{{keep.name}}</h3>
                                 <h3 class="card-text">{{keep.description}}</h3>
                                 <div class="container">
                                     <img :src="keep.img" alt="">
                                     <!-- <button class="btn" data-toggle="modal" data-target="#viewingKeepModal" @click="addView(keep)">View</button>
-                                                <button class="btn" @click="addToVault(keep)">Add to Vault </button> -->
-                                    <button class="btn2">Delete</button>
-                                    <!-- <button class="btn3">Views:{{keep.views}}</button> -->
+                                        <button class="btn" @click="addToVault(keep)">Add to Vault </button> -->
+                                        <button class="btn2">Delete</button>
+                                        <!-- <button class="btn3">Views:{{keep.views}}</button> -->
+                                    </div>
                                 </div>
                             </div>
+                        </div>       
+                        <div class="col-6">
+                            <div v-for="vault in userVaults" :key="vault.id" class="card mb-4 text-center text-dark">
+                                <h3 class="card-text">{{vault.name}}</h3>
+                                <h3 class="card-text">{{vault.description}}</h3>
+                                <!-- button setActiveVault => activeVault in data => dispatch getVaultKeeps  -->
+                                <!-- v-if=vault.id == activeVault.id -->
+                                    <!-- v-for keeps in vaultKeeps -->
+
+                            </div>
                         </div>
-                    </div>       
-                <div class="col-6">
-                    <div v-for="vault in vaults" :key="vault.id" class="card mb-4 text-center">
-                        <h3 class="card-text">{{vault.name}}</h3>
-                        <h3 class="card-text">{{vault.description}}</h3>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 
 </template>
@@ -157,6 +161,9 @@
             },
             vaults() {
                 return this.$store.state.vaults
+            },
+            userVaults(){
+                return this.$store.state.userVaults
             }
         },
         methods: {
@@ -183,13 +190,14 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     img {
-        max-height: 30vh;
-        max-width: 30vh;
+        height: 50vh;
+        width: 35vh;
     }
 
     .keepbody {
-        background-image: url("../assets/stars2.jpg");
+        background-image: url("../assets/stars2.jpg ");
         background-size: 100%;
+          min-height: 200vh;
     }
 
     .container .btn2 {

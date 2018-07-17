@@ -53,18 +53,19 @@ export default new vuex.Store({
             state.vaults = payload
         },
         setUserVaults(state, userVaults) {
-            state.vaults = userVaults
+            state.userVaults = userVaults
         }
     },
 
     actions: {
         //AUTH STUFF
-        login({ commit }, loginCredentials) {
+        login({ commit, dispatch }, loginCredentials) {
             auth.post('login', loginCredentials)
                 .then(res => {
                     console.log('Successfully logged in')
                     commit('setUser', res.data)
                     router.push({ name: 'Home' })
+                    dispatch('getVaults', res.data.id)
                 })
                 .catch(err => {
                     console.log("Invalid Credentials")
@@ -90,7 +91,12 @@ export default new vuex.Store({
             auth.get('authenticate')
                 .then(res => {
                     commit('setUser', res.data)
-                    router.push({ name: 'Home' })
+                    if(res.status == 200){
+                        router.push({ name: 'Home' })
+                        dispatch('getVaults', res.data.id)
+                    }else{
+                        router.push({name: 'login'})
+                    }
                 })
                 .catch(res => {
                     console.log(res.data)
@@ -99,7 +105,7 @@ export default new vuex.Store({
         addKeep({ dispatch, commit }, keep) {
             api.post('/keeps', keep)
                 .then(res => {
-                    dispatch('getKeeps')
+                    dispatch('getKeeps', res.data)
                 })
         },
         getKeeps({ commit, dispatch }) {
@@ -140,7 +146,7 @@ export default new vuex.Store({
         addVault({ dispatch, commit }, vault) {
             api.post('/vault', vault)
                 .then(res => {
-                    dispatch('getvaults')
+                    dispatch('getVaults')
                 })
         },
         getVaults({ commit, dispatch, state }, userid) {
@@ -149,15 +155,15 @@ export default new vuex.Store({
                     commit('setUserVaults', res.data)
                 })
         },
-        getUserVaults({ commit, dispatch }, user) {
-            api.get("/vault/user" + user.id)
-                .then(res => {
-                    commit("setUserVaults", res.data)
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-        },
+        // getUserVaults({ commit, dispatch }, user) {
+        //     api.get("/vault/user" + user.id)
+        //         .then(res => {
+        //             commit("setUserVaults", res.data)
+        //         })
+        //         .catch(err => {
+        //             console.log(err)
+        //         })
+        // },
         removeVault({ commit, dispatch, state }, vault) {
             api.delete('/vaults/' + vault._id, vault)
                 .then(res => {
@@ -180,7 +186,6 @@ export default new vuex.Store({
         addVaultKeep({ dispatch, commit }, vaultkeep) {
             api.post('/vaultkeep', vaultkeep)
                 .then(res => {
-                    dispatch('getvaults')
                 })
         },
     }

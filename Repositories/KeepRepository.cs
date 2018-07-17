@@ -17,8 +17,8 @@ namespace Keepr.Repositories
         public Keep CreateKeep(Keep newKeep)
         {
             int id = _db.ExecuteScalar<int>(@"
-                INSERT INTO keeps (name, description, img, views, keeps, privatepublic, authorId)
-                VALUES (@Name, @Description, @Img, @Views, @Keeps, @Privatepublic, @AuthorId);
+                INSERT INTO keeps (name, description, img, views, keeps, public, authorId)
+                VALUES (@Name, @Description, @Img, @Views, @Keeps, @Public, @AuthorId);
                 SELECT LAST_INSERT_ID();
             ", newKeep);
             newKeep.Id = id;
@@ -27,7 +27,8 @@ namespace Keepr.Repositories
 
         public IEnumerable<Keep> GetAll()
         {
-            return _db.Query<Keep>("SELECT * FROM keeps WHERE public = 1;");
+            var keeps = _db.Query<Keep>("SELECT * FROM keeps;");
+            return keeps;
         }
 
         internal IEnumerable<Keep> GetByVaultId(int id)

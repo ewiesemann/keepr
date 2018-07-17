@@ -4,9 +4,9 @@ namespace Keepr.Models{
     {
         public int Id {get; set;}
 
-        public int keepId {get; set;}
+        public int KeepId {get; set;}
 
-        public int vaultId {get; set;}
+        public int VaultId {get; set;}
         public string AuthorId { get; set; }
     }
 }

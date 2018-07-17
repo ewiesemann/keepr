@@ -45,10 +45,10 @@ namespace Keepr.Controllers
         // [Authorize]
         public Keep CreateKeep(int id, [FromBody]Keep newKeep)
         {
-            newKeep.AuthorId = HttpContext.User.Identity.Name;
             // newKeep.VaultId = id;
             if (ModelState.IsValid)
             {
+            newKeep.AuthorId = HttpContext.User.Identity.Name;
                 return _db.CreateKeep(newKeep);
             }
             return null;

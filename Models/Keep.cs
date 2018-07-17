@@ -11,9 +11,10 @@ namespace Keepr.Models
         public int keeps {get; set;}
         public int Public {get; set;}
         public string AuthorId { get; set; }
-        
-    }
 
-
+        public Keep(){
+            Public = 1;
+        }        
+       }
 
 }
