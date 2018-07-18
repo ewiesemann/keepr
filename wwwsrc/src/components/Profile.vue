@@ -88,7 +88,7 @@
             <h3>You can manage your private Keeps and Vaults here</h3>
             <div class="row">
                 <div class="col-6">
-                    <h1>My Keeps</h1>
+                    <h1>My Private Keeps</h1>
                 </div>
                 <div class="col-6">
                     <h1>My Vaults</h1>
@@ -115,7 +115,7 @@
                             <div v-for="vault in userVaults" :key="vault.id" class="card mb-4 text-center text-dark">
                                 <h3 class="card-text">{{vault.name}}</h3>
                                 <h3 class="card-text">{{vault.description}}</h3>
-                                <a @click="setActiveVault" class="nav-item nav-link" href="#/MyVault">View Your Vault</a>
+                                <a @click="setActiveVault(vault)" class="nav-item nav-link" href="#/MyVault">View Your Vault</a>
                                 <!-- button setActiveVault => activeVault in data => dispatch getVaultKeeps  -->
                                 <!-- v-if=vault.id == activeVault.id -->
                                     <!-- v-for keeps in vaultKeeps -->
@@ -188,7 +188,9 @@
             myvault(){
                 router.push({name: 'MyVault'})
             },
-
+            setActiveVault(vault){
+                this.$store.dispatch('setActiveVault', vault)
+            }
         }
     }
 

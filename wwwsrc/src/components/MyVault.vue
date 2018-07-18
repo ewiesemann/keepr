@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="keepbody">
         <nav class="navbar navbar-expand-lg text-light bg-dark">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -7,7 +7,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link active" href="#">Home
+                    <a class="nav-item nav-link active" href="#Home">Home
                         <span class="sr-only">(current)</span>
                     </a>
 
@@ -77,35 +77,35 @@
                             </div>
                         </div>
                     </div>
-                    <a @click="viewProfile" class="nav-item nav-link" href="#/Profile">My Profile</a>
+                    <a @click="Profile" class="nav-item nav-link" href="#/Profile">My Profile</a>
                     <a @click='logout' class="nav-item nav-link" href="#">Log Out</a>
                 </div>
             </div>
         </nav>
-        <div class="row keepbody">
-            <!-- <div class="keepcards d-flex justify-content-around flex-wrap">
-                <div v-for="keeps in vaultKeeps" v-if="vault.id == activeVault.id" :key="keep.id" class="card mb-4 text-center text-dark">
+        <div class="row">
+            <div class="keepcards d-flex justify-content-around flex-wrap">
+                <div v-for="keep in vaultKeeps" v-if="vault.id == activeVault.id" :key="keep.id" class="card mb-4 text-center text-dark">
                     <h3 class="card-text">{{keep.name}}</h3>
                     <h3 class="card-text">{{keep.description}}</h3>
                     <div class="container">
                         <img :src="keep.img" alt="">
                         <button class="btn" data-toggle="modal" data-target="#viewingKeepModal" @click="addView(keep)">View</button>
-                                    <button class="btn" @click="addToVault(keep)">Add to Vault </button>
+                        <button class="btn" @click="addToVault(keep)">Add to Vault </button>
                         <button class="btn2">Delete</button> -->
-                        <!-- <button class="btn3">Views:{{keep.views}}</button> -->
+                        <button class="btn3">Views:{{keep.views}}</button>
                         <!-- button setActiveVault => activeVault in data => dispatch getVaultKeeps  -->
                         <!-- v-if=vault.id == activeVault.id -->
                         <!-- v-for keeps in vaultKeeps -->
-                    <!-- </div>
+                    </div>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
 </template>
 <script>
     import router from '../router'
     export default {
-        name: 'Profile',
+        name: 'MyVault',
         components: {
         },
         data() {
@@ -118,12 +118,12 @@
                 vault: {
                     name: "",
                     description: "",
-                }
+                },
+                vaultKeeps:[]
             }
         },
         mounted() {
-            this.$store.dispatch("getKeeps")
-            this.$store.dispatch("getVaults", this.user.id)
+            this.$store.dispatch("getKeeps", this.activeVault)
         },
 
         computed: {
@@ -139,6 +139,9 @@
             userVaults() {
                 return this.$store.state.userVaults
             },
+            activeVault() {
+                return this.$store.state.activeVault
+            },
         },
         methods: {
             logout() {
@@ -148,7 +151,7 @@
                 console.log(this.keep)
                 this.$store.dispatch('addKeep', this.keep)
             },
-            profile() {
+            Profile() {
                 router.push({ name: 'Profile' })
             },
             createVault() {
