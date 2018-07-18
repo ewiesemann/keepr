@@ -115,6 +115,7 @@
                             <div v-for="vault in userVaults" :key="vault.id" class="card mb-4 text-center text-dark">
                                 <h3 class="card-text">{{vault.name}}</h3>
                                 <h3 class="card-text">{{vault.description}}</h3>
+                                <a @click="myvault" class="nav-item nav-link" href="#/Vault">View Your Vault</a>
                                 <!-- button setActiveVault => activeVault in data => dispatch getVaultKeeps  -->
                                 <!-- v-if=vault.id == activeVault.id -->
                                     <!-- v-for keeps in vaultKeeps -->
@@ -177,10 +178,16 @@
             profile() {
                 router.push({ name: 'Profile' })
             },
+            myVault(){
+                router.push({ name: 'Vault'})
+            },
             createVault() {
                 console.log(this.vault)
                 this.$store.dispatch('addVault', this.vault)
             },
+            vault() {
+                router.push({name: 'Vault'})
+            }
         }
     }
 

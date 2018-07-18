@@ -1,6 +1,6 @@
 <template>
-    <div class="fullscreen">
-        <div class="home container-fluid">
+    <div class="fullscreen keepbody">
+        <div class="home container-fluid text-light">
             <div class="main-top-style">
                 <h2>Welcome to</h2>
                 <h1>KEEPR</h1>
@@ -108,4 +108,12 @@
 </script>
 
 <style>
+        .keepbody {
+        background-image: url("../assets/stars2.jpg ");
+        background-size: 100%;
+          min-height: 200vh;
+    }
+    h3 {
+        color: rgb(209, 186, 186)
+    }
 </style>
