@@ -9,7 +9,7 @@ import Register from '@/components/Register'
 // @ts-ignore
 import Profile from '@/components/Profile'
 // @ts-ignore
-import Vault from '@/components/Vault'
+import MyVault from '@/components/MyVault'
 
 Vue.use(Router)
 
@@ -40,9 +40,9 @@ export default new Router({
     },
 
     {
-      path: '/Vault',
-      name: 'Vault',
-      component: Vault
+      path: '/MyVault',
+      name: 'MyVault',
+      component: MyVault
     }
   ]
 })
