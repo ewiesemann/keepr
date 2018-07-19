@@ -115,7 +115,7 @@
                             <div v-for="vault in userVaults" :key="vault.id" class="card mb-4 text-center text-dark">
                                 <h3 class="card-text">{{vault.name}}</h3>
                                 <h3 class="card-text">{{vault.description}}</h3>
-                                <a @click="setActiveVault(vault)" class="nav-item nav-link" href="#/MyVault">View Your Vault</a>
+                                <router-link :to="{name: 'MyVault', params:{vaultId: vault.id}}">View Your Vault</router-link>
                                 <!-- button setActiveVault => activeVault in data => dispatch getVaultKeeps  -->
                                 <!-- v-if=vault.id == activeVault.id -->
                                     <!-- v-for keeps in vaultKeeps -->

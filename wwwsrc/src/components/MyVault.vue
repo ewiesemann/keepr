@@ -84,15 +84,15 @@
         </nav>
         <div class="row">
             <div class="keepcards d-flex justify-content-around flex-wrap">
-                <div v-for="keep in vaultKeeps" v-if="vault.id == activeVault.id" :key="keep.id" class="card mb-4 text-center text-dark">
+                <div v-for="keep in vaultKeeps"  class="card mb-4 text-center text-dark">
                     <h3 class="card-text">{{keep.name}}</h3>
                     <h3 class="card-text">{{keep.description}}</h3>
                     <div class="container">
                         <img :src="keep.img" alt="">
-                        <button class="btn" data-toggle="modal" data-target="#viewingKeepModal" @click="addView(keep)">View</button>
-                        <button class="btn" @click="addToVault(keep)">Add to Vault </button>
-                        <button class="btn2">Delete</button> -->
-                        <button class="btn3">Views:{{keep.views}}</button>
+                        <!-- <button class="btn2">Delete</button> -->
+                        
+                        <hr>
+                        <p class="btn3">Views:{{keep.views}}</p>
                         <!-- button setActiveVault => activeVault in data => dispatch getVaultKeeps  -->
                         <!-- v-if=vault.id == activeVault.id -->
                         <!-- v-for keeps in vaultKeeps -->
@@ -106,6 +106,7 @@
     import router from '../router'
     export default {
         name: 'MyVault',
+        props: ['vaultId'],
         components: {
         },
         data() {
@@ -118,20 +119,20 @@
                 vault: {
                     name: "",
                     description: "",
-                },
-                vaultKeeps:[]
+                }
             }
         },
         mounted() {
-            this.$store.dispatch("getKeeps", this.activeVault)
+            // this.$store.dispatch('setActiveVault', this.vaultId)
+            this.$store.dispatch("getVaultKeeps", this.vaultId)
         },
 
         computed: {
             user() {
                 return this.$store.state.user
             },
-            keeps() {
-                return this.$store.state.keeps
+            vaultKeeps() {
+                return this.$store.state.vaultKeeps
             },
             vaults() {
                 return this.$store.state.vaults

@@ -40,7 +40,8 @@ export default new Router({
     },
 
     {
-      path: '/MyVault',
+      path: '/MyVault/:vaultId',
+      props: true,
       name: 'MyVault',
       component: MyVault
     }
