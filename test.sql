@@ -22,7 +22,7 @@
 --     PRIMARY KEY (id)
 -- );
 
--- DELETE FROM keeps;
+-- DELETE FROM vaults;
 
 -- CREATE TABLE keeps (
 --     id int NOT NULL AUTO_INCREMENT,
